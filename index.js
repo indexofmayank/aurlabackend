@@ -62,5 +62,16 @@ app.use('/api/coursecategory', courseCategoryRouter);
 // using other middlewares
 app.use(errorMiddleware);
 
-// Exporting the app as a Vercel function
-module.exports = app;
+// starting server
+const server = app.listen(process.env.PORT || 5000, () => {
+  console.log('Server running');
+});
+
+// unhandled promise rejection
+process.on('unhandledRejection', (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log(`Server shutting down due to unhandled promise rejection`);
+  server.close(() => {
+    process.exit(1);
+  });
+});
