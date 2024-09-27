@@ -28,16 +28,8 @@ const connectToDb = require('./config/db');
 // require cloudinary configs
 const cloudinary = require('./config/cloudinary');
 
-// uncaught exception
-process.on('uncaughtException', (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log(`Server shutting down due to uncaught exception`);
-  process.exit(1);
-});
-
 // connect to db
 connectToDb();
-
 
 // using middlewares
 app.use(
@@ -70,16 +62,5 @@ app.use('/api/coursecategory', courseCategoryRouter);
 // using other middlewares
 app.use(errorMiddleware);
 
-// starting server
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log('Server running');
-});
-
-// unhandled promise rejection
-process.on('unhandledRejection', (err) => {
-  console.log(`Error: ${err.message}`);
-  console.log(`Server shutting down due to unhandled promise rejection`);
-  server.close(() => {
-    process.exit(1);
-  });
-});
+// Exporting the app as a Vercel function
+module.exports = app;
