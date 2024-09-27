@@ -38,14 +38,14 @@ process.on('uncaughtException', (err) => {
 // connect to db
 connectToDb();
 
+
 // using middlewares
 app.use(
   cors({
-    origin: [/netlify\.app$/, /localhost:\d{4}$/],
+    origin: [/vercel\.app$/, /localhost:\d{4}$/],
     credentials: true,
   })
-);
-app.use(express.json({ limit: '20mb' }));
+);app.use(express.json({ limit: '20mb' }));
 app.use(cookieParser());
 
 // basic api route
