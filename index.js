@@ -45,7 +45,8 @@ app.use(
     origin: [/vercel\.app$/, /localhost:\d{4}$/],
     credentials: true,
   })
-);app.use(express.json({ limit: '20mb' }));
+);
+app.use(express.json({ limit: '20mb' }));
 app.use(cookieParser());
 
 // basic api route
