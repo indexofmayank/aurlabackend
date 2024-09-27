@@ -2,26 +2,7 @@ const Course = require('../models/courseModel');
 const ErrorHandler = require('../utils/ErrorHandler');
 const catchAsyncError = require('../middleware/CatchAsyncErrors');
 const cloudinary = require('../config/cloudinary');
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage').GridFsStorage;
 const mongoose = require('mongoose');
-
-// Set up GridFS storage for video uploads
-const storage = new GridFsStorage({
-    url: "mongodb+srv://maimayanmanu:muWaE3rtw88uR1aG@cluster0.gxdkn.mongodb.net/yourDatabaseName", // Replace with your database name
-    options: { useNewUrlParser: true, useUnifiedTopology: true },
-    file: (req, file) => {
-        return {
-            filename: file.originalname,
-            bucketName: "videos" // The name of the GridFS bucket
-        };
-    }
-});
-
-const upload = multer({ storage });
-
-// Middleware for handling video upload
-exports.uploadVideo = upload.single('video');
 
 // Create course with video
 exports.createCourse = catchAsyncError(async (req, res, next) => {
